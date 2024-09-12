@@ -1,0 +1,165 @@
+
+
+
+class Cabeza 
+{
+    private String tipoCabeza;
+
+    public Cabeza(String tipoCabeza) 
+    {
+        this.tipoCabeza = tipoCabeza;
+        System.out.println("Cabeza del tipo: " + tipoCabeza);
+    }
+
+    public void procesar() 
+    {
+        System.out.println("Procesando amenazas.");
+    }
+}
+
+
+
+public class ClasePrincipal 
+{
+    public static void main(String[] args) 
+    {
+        Robot robot = new Robot("Adamantium", 5, 5, "Cabeza vigilante");
+
+        TrajeBatalla trajeBatalla = new TrajeBatalla("Escarlata", "L");
+        robot.ponerOutfit(trajeBatalla);
+
+        TrajeDescanso trajeDescanso = new TrajeDescanso("Rosado", "XL");
+        robot.ponerOutfit(trajeDescanso);
+
+        robot.manos.cerrarDedos();
+        robot.piernas.elongar();
+    }
+}
+
+
+
+class Mano 
+{
+    private int cantidadDedos;
+
+    public Mano(int cantidadDedos) 
+    {
+        this.cantidadDedos = cantidadDedos;
+        System.out.println("Mano tiene " + cantidadDedos + " dedos.");
+    }
+
+    public void cerrarDedos() 
+    {
+        System.out.println("Cerrando los " + cantidadDedos + " dedos de la mano.");
+    }
+}
+
+
+
+abstract class Outfit 
+{
+    protected String color;
+    protected String talla;
+
+    public Outfit(String color, String talla) 
+    {
+        this.color = color;
+        this.talla = talla;
+    }
+
+    public abstract void poner();
+}
+
+
+
+class Pierna 
+{
+    private int cantidadDedosPies;
+
+    public Pierna(int cantidadDedosPies) 
+    {
+        this.cantidadDedosPies = cantidadDedosPies;
+        System.out.println("Pierna tiene " + cantidadDedosPies + " dedos en el pie.");
+    }
+
+    public void elongar() 
+    {
+        System.out.println("Elongando con las piernas del robot.");
+    }
+}
+
+
+
+class Robot 
+{
+    Mano manos;
+    Pierna piernas;
+    Torso torso;
+    Cabeza cabeza;
+
+    public Robot(String tipoTorso, int cantidadDedosManos, int cantidadDedosPies, String tipoCabeza) 
+    {
+        this.manos = new Mano(cantidadDedosManos);
+        this.piernas = new Pierna(cantidadDedosPies);
+        this.torso = new Torso(tipoTorso);
+        this.cabeza = new Cabeza(tipoCabeza);
+        System.out.println("Robot ensamblado, Transform and roll out!.");
+    }
+
+    public void ponerOutfit(Outfit outfit) 
+    {
+        outfit.poner();
+    }
+}
+
+
+
+class Torso 
+{
+    private String tipoTorso;
+
+    public Torso(String tipoTorso) 
+    {
+        this.tipoTorso = tipoTorso;
+        System.out.println("Torso con coraza de: " + tipoTorso);
+    }
+
+    public void acorazar() 
+    {
+        System.out.println("Robot con el torso acorazado.");
+    }
+}
+
+
+
+class TrajeBatalla extends Outfit 
+{
+    public TrajeBatalla(String color, String talla) 
+    {
+        super(color, talla);
+        System.out.println("Traje de batalla creado: Color " + color + ", Talla " + talla);
+    }
+
+    @Override
+    public void poner() 
+    {
+        System.out.println("Poniendo el traje de batalla.");
+    }
+}
+
+
+
+class TrajeDescanso extends Outfit 
+{
+    public TrajeDescanso(String color, String talla) 
+    {
+        super(color, talla);
+        System.out.println("Traje de descanso creado: Color " + color + ", Talla " + talla);
+    }
+
+    @Override
+    public void poner() 
+    {
+        System.out.println("Poniendo el traje de descanso.");
+    }
+}
